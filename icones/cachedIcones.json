@@ -1,0 +1,26 @@
+[
+  {
+    "iconeName": "carbon:moon",
+    "iconeColored": false
+  },
+  {
+    "iconeName": "carbon:sun",
+    "iconeColored": false
+  },
+  {
+    "iconeName": "mdi:github",
+    "iconeColored": false
+  },
+  {
+    "iconeName": "mdi:linkedin",
+    "iconeColored": false
+  },
+  {
+    "iconeName": "material-symbols:list-rounded",
+    "iconeColored": false
+  },
+  {
+    "iconeName": "mdi:instagram",
+    "iconeColored": false
+  }
+]
