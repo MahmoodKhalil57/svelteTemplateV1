@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Field } from '$lib/components/form/inputType';
+	import type { Field } from '$lib/utils/ApiStructure.type';
 	import { InputTypeEnum } from '$lib/utils/apiStructure';
 	import DefaultInput from './defaultInput.svelte';
 	import TextAreaInput from './textAreaInput.svelte';

@@ -1,5 +1,5 @@
 import { z, type AnyZodObject } from 'zod';
-import type { Routes, ApiStructure } from '$lib/components/form/inputType';
+import type { Routes, Procedures, FormStructure } from '$lib/utils/ApiStructure.type';
 
 export enum InputTypeEnum {
 	TEXT,
@@ -34,12 +34,27 @@ export const apiStructure = {
 	}
 } as const;
 
-export const getFormStructure = <R extends Routes, P extends keyof ApiStructure[R]>(
+const getFormStructure = <S extends { formStructure: FormStructure }>(scheme: S) => {
+	return scheme['formStructure'] as (typeof scheme)['formStructure'];
+};
+
+export const getFormStructureWithRouteProcedure = <R extends Routes, P extends Procedures<R>>(
 	route: R,
-	procedure: keyof P
+	procedure: P
 ) => {
-	// @ts-expect-error type works but ts doesn't like it
-	type FormStructure = (typeof apiStructure)[R][P]['formStructure'];
-	// @ts-expect-error call works but ts doesn't like it
-	return apiStructure[route][procedure]['formStructure'] as FormStructure;
+	const scheme = apiStructure[route][procedure];
+	const formStructure = getFormStructure(scheme);
+	return formStructure;
+};
+
+export const getEmptyFormObject = <DynamicFormStructure extends FormStructure>(
+	formStructure: DynamicFormStructure
+) => {
+	type FormObject = {
+		[key in (typeof formStructure)[number][number]['id']]: string;
+	};
+	return formStructure.flat().reduce((acc, field) => {
+		acc[field.id as keyof FormObject] = '';
+		return acc;
+	}, {} as FormObject) as FormObject;
 };

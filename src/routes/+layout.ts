@@ -8,11 +8,11 @@ export const load = async () => {
 			: window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 		if (isDark) {
-			window.localStorage.setItem('theme', settings.themes.dark);
-			window.document.documentElement.setAttribute('data-theme', settings.themes.dark);
+			window.localStorage.setItem('theme', settings?.themes?.dark ?? '');
+			window.document.documentElement.setAttribute('data-theme', settings?.themes?.dark ?? '');
 		} else {
-			window.localStorage.setItem('theme', settings.themes.light);
-			window.document.documentElement.setAttribute('data-theme', settings.themes.light);
+			window.localStorage.setItem('theme', settings?.themes?.light ?? '');
+			window.document.documentElement.setAttribute('data-theme', settings?.themes?.light ?? '');
 		}
 	}
 };

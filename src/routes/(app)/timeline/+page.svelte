@@ -9,9 +9,9 @@
 		</div>
 	</div>
 	<div class="prose text-center">
-		<h1 class="mb-3">{settings.name}</h1>
+		<h1 class="mb-3">{settings?.fullName ?? ''}</h1>
 		<h6>{settings.job}</h6>
-		<p>{settings.description}</p>
+		<p>{settings?.descriptionLong ?? ''}</p>
 	</div>
 	<div class="gap-4 flex-center">
 		<a href="/projects" class="btn btn-primary btn-wide">Projects</a>
