@@ -1,23 +1,27 @@
-import type { FormStructure } from '$lib/components/form/inputType';
 import { z, type AnyZodObject } from 'zod';
+import type { Routes, ApiStructure } from '$lib/components/form/inputType';
 
-// type ApiStructure = {
-// 	[key: string]: {
-// 		[key: string]: {
-// 			formStructure: FormStructure;
-// 			validation: AnyZodObject;
-// 		};
-// 	};
-// };
+export enum InputTypeEnum {
+	TEXT,
+	EMAIL,
+	TEXTAREA
+}
 
 export const apiStructure = {
 	contact: {
 		contactForm: {
 			formStructure: [
-				[{ id: 'name', label: 'Name', type: 'text', placeHolder: 'Your name' }],
-				[{ id: 'email', label: 'Email', type: 'email', placeHolder: 'Your name' }],
-				[{ id: 'message', label: 'Message', type: 'textarea', placeHolder: 'Your name' }]
-			] satisfies FormStructure,
+				[{ id: 'name', label: 'Name', type: InputTypeEnum.TEXT, placeHolder: 'Your name' }],
+				[{ id: 'email', label: 'Email', type: InputTypeEnum.EMAIL, placeHolder: 'Your name' }],
+				[
+					{
+						id: 'message',
+						label: 'Message',
+						type: InputTypeEnum.TEXTAREA,
+						placeHolder: 'Your name'
+					}
+				]
+			],
 			validation: z.object({
 				name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
 				email: z.string().email({ message: 'Invalid Email' }),
@@ -28,4 +32,14 @@ export const apiStructure = {
 			}) satisfies AnyZodObject
 		}
 	}
+} as const;
+
+export const getFormStructure = <R extends Routes, P extends keyof ApiStructure[R]>(
+	route: R,
+	procedure: keyof P
+) => {
+	// @ts-expect-error type works but ts doesn't like it
+	type FormStructure = (typeof apiStructure)[R][P]['formStructure'];
+	// @ts-expect-error call works but ts doesn't like it
+	return apiStructure[route][procedure]['formStructure'] as FormStructure;
 };

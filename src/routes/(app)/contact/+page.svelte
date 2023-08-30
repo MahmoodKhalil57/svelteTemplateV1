@@ -1,14 +1,14 @@
 <script lang="ts">
+	import type { InitFormObj } from '$lib/components/form/inputType';
 	import type { ActionData } from './$types';
 	import FormBuilder from '$lib/components/form/formBuilder.svelte';
 	import { settings } from '$lib/utils/settings';
-	import { apiStructure } from '$lib/utils/apiStructure';
 	import { enhance } from '$app/forms';
 	import toast from 'svelte-french-toast';
 
-	const formStructure = apiStructure.contact.contactForm.formStructure;
+	let initForm: InitFormObj<'contact', 'contactForm'> = { name: '', email: '', message: '' };
 
-	export let form: ActionData;
+	export let formResponse: ActionData;
 
 	const toastError = (message: string) => {
 		toast.error(message, {
@@ -22,11 +22,11 @@
 		});
 	};
 
-	$: if (form?.errorMessage) {
-		toastError(form.errorMessage);
+	$: if (formResponse?.errorMessage) {
+		toastError(formResponse.errorMessage);
 	}
 
-	$: if (form?.success) {
+	$: if (formResponse?.success) {
 		toastSuccess('Message recieved, will get back to you soon!');
 	}
 </script>
@@ -46,7 +46,9 @@
 		method="POST"
 		use:enhance
 	>
-		<FormBuilder {formStructure} />
+		{JSON.stringify(initForm)}
+
+		<FormBuilder route="contact" procedure="contactForm" bind:initForm />
 
 		<button class="mt-10 btn btn-primary btn-wide">Submit</button>
 	</form>
