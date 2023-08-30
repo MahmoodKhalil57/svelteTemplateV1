@@ -58,3 +58,16 @@ export const getEmptyFormObject = <DynamicFormStructure extends FormStructure>(
 		return acc;
 	}, {} as FormObject) as FormObject;
 };
+
+const getZodValidation = <S extends { validation: AnyZodObject }>(scheme: S) => {
+	return scheme['validation'] as (typeof scheme)['validation'];
+};
+
+export const getZodValidationWithRouteProcedure = <R extends Routes, P extends Procedures<R>>(
+	route: R,
+	procedure: P
+) => {
+	const scheme = apiStructure[route][procedure];
+	const formStructure = getZodValidation(scheme);
+	return formStructure;
+};
