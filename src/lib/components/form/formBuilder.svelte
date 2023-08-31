@@ -2,9 +2,11 @@
 	type R = $$Generic<Routes>;
 	type P = $$Generic<Procedures<R>>;
 
-	import { getFormStructureWithRouteProcedure, getEmptyFormObject } from '$lib/utils/apiStructure';
+	import { getFormStructureWithRouteProcedure, getEmptyFormObject } from '$lib/apiUtils/apiUtils';
+
 	import FormElement from './formElement.svelte';
-	import type { Routes, Procedures } from '$lib/utils/ApiStructure.type';
+	import type { Routes, Procedures, APIInput } from '$lib/apiUtils/ApiUtils.type';
+	import { apiGet } from '$lib/apiUtils/apiClient';
 
 	export let route: R;
 	export let procedure: P;
@@ -15,6 +17,12 @@
 	>;
 
 	export let initForm = getEmptyFormObject(formStructure);
+
+	export let onSubmit = async (data: typeof initForm) => {
+		// assume initForm is the same as the APIInput
+		const response = await apiGet(route, procedure, data as APIInput<R, P>, true);
+		console.log(response);
+	};
 </script>
 
 <form
@@ -33,5 +41,5 @@
 		{/each}
 	</div>
 
-	<button class="mt-10 btn btn-primary btn-wide">Submit</button>
+	<button class="mt-10 btn btn-primary btn-wide" on:click={() => onSubmit(initForm)}>Submit</button>
 </form>

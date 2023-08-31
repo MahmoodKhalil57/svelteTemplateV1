@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Field } from '$lib/utils/ApiStructure.type';
-	import { InputTypeEnum } from '$lib/utils/apiStructure';
+	import type { Field } from '$lib/apiUtils/ApiUtils.type';
+	import { InputTypeEnum } from '$lib/settings/apiStructure';
 	import DefaultInput from './defaultInput.svelte';
 	import TextAreaInput from './textAreaInput.svelte';
 

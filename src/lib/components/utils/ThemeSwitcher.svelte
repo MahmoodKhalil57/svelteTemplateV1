@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { themeChange } from 'theme-change';
-	import { settings } from '$lib/utils/settings';
+	import { settings } from '$lib/settings/portfolioInfo';
 
 	export let type: 'toggle' | 'select';
 

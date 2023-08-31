@@ -1,11 +1,11 @@
 import type { RequestHandler } from './$types';
-import { getZodValidationWithRouteProcedure } from '$lib/utils/apiStructure';
-import type { Routes, Procedures } from '$lib/utils/ApiStructure.type';
+import { getZodValidationWithRouteProcedure } from '$lib/apiUtils/apiUtils';
+import type { Routes, Procedures } from '$lib/apiUtils/ApiUtils.type';
 import { fail, json } from '@sveltejs/kit';
 import { type z, ZodError } from 'zod';
-import { API } from '$lib/utils/apiRoot.server';
+import { API } from '$api/root.server';
 
-export const GET: RequestHandler = async ({ url, request }) => {
+export const POST: RequestHandler = async ({ url, request }) => {
 	let route: Routes | undefined;
 	let procedure: Procedures<NonNullable<typeof route>> | undefined;
 	let zodValidation: z.AnyZodObject | undefined;
@@ -34,7 +34,8 @@ export const GET: RequestHandler = async ({ url, request }) => {
 	try {
 		if (parsedData && route && procedure) {
 			const givenProcedure = API[route][procedure];
-			const response = givenProcedure(parsedData);
+			// @ts-expect-error ts I dont know what this error is even
+			const response = await givenProcedure(parsedData);
 			return json(response);
 		}
 	} catch (error) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { InputTypeEnum } from '$lib/utils/apiStructure';
+	import { InputTypeEnum } from '$lib/settings/apiStructure';
 	export let label: string;
 	export let type: InputTypeEnum;
 	export let placeHolder: string = '';

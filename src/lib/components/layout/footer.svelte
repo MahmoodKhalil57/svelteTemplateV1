@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import Logo from '../mk/logo.svelte';
 	import { fade } from 'svelte/transition';
-	import { settings } from '$lib/utils/settings';
+	import { settings } from '$lib/settings/portfolioInfo';
 
 	let quote: { text: string; quoteAuthor: string; apiAuthor: string } | undefined;
 

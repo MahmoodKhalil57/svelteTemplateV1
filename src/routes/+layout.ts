@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import { settings } from '$lib/utils/settings';
+import { settings } from '$lib/settings/portfolioInfo';
 
 export const load = async () => {
 	if (browser) {

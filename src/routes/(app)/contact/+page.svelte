@@ -1,9 +1,22 @@
 <script lang="ts">
-	import type { FormProps } from '$lib/utils/ApiStructure.type';
 	import FormBuilder from '$lib/components/form/formBuilder.svelte';
-	import { settings } from '$lib/utils/settings';
+	import { settings } from '$lib/settings/portfolioInfo';
 
-	let initForm: FormProps<'contact', 'contactForm'>['initForm'];
+	import type { FormProps, PageConfig } from '$lib/apiUtils/ApiUtils.type';
+	import { apiGet } from '$lib/apiUtils/apiClient';
+
+	const pageConfig = {
+		route: 'contactRouter',
+		procedure: 'contactForm'
+	} satisfies PageConfig;
+
+	let onSubmit: FormProps<
+		typeof pageConfig.route,
+		typeof pageConfig.procedure
+	>['onSubmit'] = async (data) => {
+		const response = await apiGet(pageConfig.route, pageConfig.procedure, data, true);
+		console.log(response);
+	};
 </script>
 
 <div class="flex-col gap-6 px-2 prose sm:pb-40 flex-center stretch">
@@ -15,7 +28,5 @@
 		>
 		or by sending me a message using the following form.
 	</p>
-
-	{JSON.stringify(initForm)}
-	<FormBuilder route="contact" procedure="contactForm" bind:initForm />
+	<FormBuilder route={pageConfig.route} procedure={pageConfig.procedure} {onSubmit} />
 </div>
