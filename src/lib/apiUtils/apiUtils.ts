@@ -2,16 +2,13 @@ import type { AnyZodObject } from 'zod';
 import type { Routes, Procedures, FormStructure } from '$lib/apiUtils/ApiUtils.type';
 import { apiStructure } from '$lib/settings/apiStructure';
 
-const getFormStructure = <S extends { formStructure: FormStructure }>(scheme: S) => {
-	return scheme['formStructure'] as (typeof scheme)['formStructure'];
-};
-
 export const getFormStructureWithRouteProcedure = <R extends Routes, P extends Procedures<R>>(
 	route: R,
 	procedure: P
 ) => {
 	const scheme = apiStructure[route][procedure];
-	const formStructure = getFormStructure(scheme);
+	// @ts-expect-error ts I dont know what this error is even
+	const formStructure = scheme['formStructure'] as (typeof scheme)['formStructure'];
 	return formStructure;
 };
 
