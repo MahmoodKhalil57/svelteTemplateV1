@@ -3,7 +3,7 @@ import { prisma } from '$lib/server/prismaClient.js';
 import { settings } from '$lib/settings/portfolioInfo';
 
 export default {
-	contactForm: async (input) => {
+	contactForm: async ({ ctx, input }) => {
 		await prisma.contact.create({
 			data: {
 				appName: settings.appName,

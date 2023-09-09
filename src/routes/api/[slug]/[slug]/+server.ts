@@ -4,6 +4,7 @@ import type { Routes, Procedures } from '$lib/apiUtils/ApiUtils.type';
 import { fail, json } from '@sveltejs/kit';
 import { type z, ZodError } from 'zod';
 import { API } from '$api/root.server';
+import { getContext } from '$api/utils/context.server';
 
 export const POST: RequestHandler = async ({ url, request }) => {
 	let route: Routes | undefined;
@@ -33,9 +34,10 @@ export const POST: RequestHandler = async ({ url, request }) => {
 
 	try {
 		if (parsedData && route && procedure) {
+			const context = getContext();
 			const givenProcedure = API[route][procedure];
 			// @ts-expect-error ts I dont know what this error is even
-			const response = await givenProcedure(parsedData);
+			const response = await givenProcedure({ ctx: context, input: parsedData });
 			return json(response);
 		}
 	} catch (error) {

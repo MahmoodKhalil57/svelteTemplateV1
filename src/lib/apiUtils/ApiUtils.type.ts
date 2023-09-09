@@ -3,6 +3,7 @@ import type FormBuilder from '$lib/components/form/formBuilder.svelte';
 import type { apiStructure, InputTypeEnum } from '$lib/settings/apiStructure';
 import type { API } from '$api/root.server';
 import type { z } from 'zod';
+import type { getContext } from '$api/utils/context.server';
 
 export type Field = { id: string; label: string; type: InputTypeEnum; placeHolder?: string };
 export type FormStructure = readonly (readonly Field[])[];
@@ -20,7 +21,10 @@ type ServerResponse = any;
 export type APIType = {
 	[R in Routes]: {
 		[P in Procedures<Routes>]: ApiStructure[R][P] extends { [key: string]: unknown }
-			? (args: z.infer<ApiStructure[R][P]['validation']>) => ServerResponse
+			? (args: {
+					ctx: ReturnType<typeof getContext>;
+					input: z.infer<ApiStructure[R][P]['validation']>;
+			  }) => ServerResponse
 			: never;
 	};
 };
