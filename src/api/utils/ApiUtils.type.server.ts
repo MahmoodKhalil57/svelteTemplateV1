@@ -33,9 +33,10 @@ export type APIInput<R extends Routes, P extends Procedures<R>> =
 	// @ts-expect-error ts doesnt like it but this works
 	z.infer<ApiStructure[R][P]['validation']>;
 
-export type APIOutput<R extends Routes, P extends Procedures<R>> =
+export type APIOutput<R extends Routes, P extends Procedures<R>> = Awaited<
 	// @ts-expect-error ts doesnt like it but this works
-	Awaited<ReturnType<(typeof API)[R][P]>>;
+	ReturnType<(typeof API)[R][P]>
+>;
 
 export type PageConfig = {
 	route: Routes;

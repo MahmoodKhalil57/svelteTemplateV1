@@ -1,4 +1,4 @@
-import type { APIType } from '$lib/apiUtils/ApiUtils.type';
+import type { APIType } from '$api/utils/ApiUtils.type.server';
 
 export default {
 	contactForm: async (input) => {

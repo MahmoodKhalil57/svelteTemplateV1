@@ -1,4 +1,4 @@
-import type { Routes, Procedures, APIInput, APIOutput } from '$lib/apiUtils/ApiUtils.type';
+import type { Routes, Procedures, APIInput, APIOutput } from '$api/utils/ApiUtils.type.server';
 import { getZodValidationWithRouteProcedure } from '$lib/apiUtils/apiUtils';
 import { ZodError, type z } from 'zod';
 
@@ -23,9 +23,11 @@ export const apiGet = async <
 					payload = zodValidation.parse(payload) as T;
 				} catch (error) {
 					if (error instanceof ZodError) {
-						const errorMessage = error.issues[0].message;
-						err = { errorMessage };
-						return err;
+						const errorMessage = error.issues[0]?.message;
+						if (errorMessage) {
+							err = { errorMessage };
+							return err;
+						}
 					}
 				}
 			}

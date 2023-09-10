@@ -2,7 +2,7 @@
 	import FormBuilder from '$lib/components/form/formBuilder.svelte';
 	import { settings } from '$lib/settings/portfolioInfo';
 
-	import type { FormProps, PageConfig } from '$lib/apiUtils/ApiUtils.type';
+	import type { FormProps, PageConfig } from '$api/utils/ApiUtils.type.server';
 	import { apiGet } from '$lib/apiUtils/apiClient';
 
 	const pageConfig = {
@@ -15,7 +15,6 @@
 		typeof pageConfig.procedure
 	>['onSubmit'] = async (data) => {
 		const response = await apiGet(pageConfig.route, pageConfig.procedure, data, true);
-		console.log(response);
 	};
 </script>
 

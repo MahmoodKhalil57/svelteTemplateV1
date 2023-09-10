@@ -1,5 +1,5 @@
-import type { APIType } from '$lib/apiUtils/ApiUtils.type';
-import { prisma } from '$lib/server/prismaClient.js';
+import type { APIType } from '$api/utils/ApiUtils.type.server';
+import { prisma } from '$api/clients/prisma.server';
 import { settings } from '$lib/settings/portfolioInfo';
 import { adminProcedure } from '$api/utils/middleware.server';
 

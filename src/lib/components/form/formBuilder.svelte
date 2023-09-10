@@ -5,7 +5,7 @@
 	import { getFormStructureWithRouteProcedure, getEmptyFormObject } from '$lib/apiUtils/apiUtils';
 
 	import FormElement from './formElement.svelte';
-	import type { Routes, Procedures, APIInput } from '$lib/apiUtils/ApiUtils.type';
+	import type { Routes, Procedures, APIInput } from '$api/utils/ApiUtils.type.server';
 	import { apiGet } from '$lib/apiUtils/apiClient';
 
 	export let route: R;

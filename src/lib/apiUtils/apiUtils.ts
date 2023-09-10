@@ -1,5 +1,4 @@
-import type { AnyZodObject } from 'zod';
-import type { Routes, Procedures, FormStructure } from '$lib/apiUtils/ApiUtils.type';
+import type { Routes, Procedures, FormStructure } from '$api/utils/ApiUtils.type.server';
 import { apiStructure } from '$lib/settings/apiStructure';
 
 export const getFormStructureWithRouteProcedure = <R extends Routes, P extends Procedures<R>>(
@@ -24,15 +23,12 @@ export const getEmptyFormObject = <DynamicFormStructure extends FormStructure>(
 	}, {} as FormObject) as FormObject;
 };
 
-const getZodValidation = <S extends { validation: AnyZodObject }>(scheme: S) => {
-	return scheme['validation'] as (typeof scheme)['validation'];
-};
-
 export const getZodValidationWithRouteProcedure = <R extends Routes, P extends Procedures<R>>(
 	route: R,
 	procedure: P
 ) => {
 	const scheme = apiStructure[route][procedure];
-	const formStructure = getZodValidation(scheme);
+	// @ts-expect-error ts I dont know what this error is even
+	const formStructure = scheme['validation'] as (typeof scheme)['validation'];
 	return formStructure;
 };

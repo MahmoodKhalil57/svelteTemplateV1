@@ -11,3 +11,4 @@ vite.config.ts.timestamp-*
 .vercel
 /prisma/dev.db
 pnpm-lock.yaml
+bun.lockb
