@@ -10,11 +10,11 @@
 		<a href="/"><Logo /></a>
 		<div class="flex-none hidden sm:block">
 			<ul class="gap-3 px-1 text-lg menu menu-horizontal">
-				<li>
+				<!-- <li>
 					<Dropdown id="navbar-dropdown" label="Quick Links">
 						<Navigation />
 					</Dropdown>
-				</li>
+				</li> -->
 				<li>
 					<div class="!bg-inherit p-0"><a href="/contact" class="btn btn-accent">Contact</a></div>
 				</li>

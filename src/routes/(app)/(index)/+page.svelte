@@ -14,8 +14,8 @@
 		<p class="hidden sm:block">{settings.descriptionLong}</p>
 		<p class="sm:hidden">{settings.descriptionShort}</p>
 	</div>
-	<div class="gap-4 flex-center">
+	<!-- <div class="gap-4 flex-center">
 		<a href="/projects" class="btn btn-primary sm:btn-wide">Projects</a>
 		<a href="/timeline" class="btn btn-neutral sm:btn-wide">TimeLine</a>
-	</div>
+	</div> -->
 </div>
